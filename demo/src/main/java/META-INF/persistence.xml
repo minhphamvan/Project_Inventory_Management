@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="demo">
+		<class>inventory.entity.Auth</class>
+		<class>inventory.entity.Category</class>
+		<class>inventory.entity.History</class>
+		<class>inventory.entity.Invoice</class>
+		<class>inventory.entity.Menu</class>
+		<class>inventory.entity.ProductInStock</class>
+		<class>inventory.entity.ProductInfo</class>
+		<class>inventory.entity.Role</class>
+		<class>inventory.entity.User</class>
+		<class>inventory.entity.UserRole</class>
+	</persistence-unit>
+</persistence>
