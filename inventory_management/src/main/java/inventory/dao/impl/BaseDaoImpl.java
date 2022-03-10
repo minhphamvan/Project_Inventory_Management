@@ -1,4 +1,4 @@
-package inventory.dao;
+package inventory.dao.impl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +11,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import inventory.dao.BaseDao;
 
 @Repository
 @Transactional(rollbackOn = Exception.class)
