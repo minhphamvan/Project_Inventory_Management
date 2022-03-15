@@ -1,14 +1,26 @@
 package inventory.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
-@RequestMapping(value = "/admin")
-public class AdminController {
+import inventory.dao.UserDao;
+import inventory.dao.impl.UserDaoImpl;
+import inventory.entity.User;
 
-	@RequestMapping("/dashboard")
-	public String dashboard() {
+@Controller
+public class AdminController {
+	
+	@Autowired
+	private UserDao<User> userDao;
+	
+	@RequestMapping("/test")
+	public String test() {
+		List<User> users = userDao.findByProperty("username" , "minhpham");
+		System.out.println(users);
+		
 		return "admin/dashboard";
 	}
 }

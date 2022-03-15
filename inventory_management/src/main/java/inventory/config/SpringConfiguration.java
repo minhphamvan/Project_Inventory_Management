@@ -10,12 +10,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate3.HibernateTransactionManager;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -24,7 +24,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc // mvc:annotation-driven
 @ComponentScan("inventory") // trỏ đến packet chứa các Controller
-@PropertySource(value = { "classpath:db.properties", "classpath:jdbc.properties" })
+@EnableTransactionManagement
 public class SpringConfiguration extends WebMvcConfigurerAdapter {
 
 	@Autowired
@@ -62,10 +62,10 @@ public class SpringConfiguration extends WebMvcConfigurerAdapter {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-		dataSource.setDriverClassName(enviroment.getProperty("jdbc.driverClassName"));
-		dataSource.setUrl(enviroment.getProperty("jdbc.url "));
-		dataSource.setUsername(enviroment.getProperty("jdbc.username"));
-		dataSource.setPassword(enviroment.getProperty("jdbc.password"));
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/inventory_management");
+		dataSource.setUsername("root");
+		dataSource.setPassword("");
 
 		return dataSource;
 	}
@@ -76,20 +76,20 @@ public class SpringConfiguration extends WebMvcConfigurerAdapter {
 		sessionFactoryBean.setDataSource(dataSource());
 		sessionFactoryBean.setPackagesToScan("inventory.entity");
 
-		Properties hibernatebProperties = new Properties();
-		hibernatebProperties.setProperty("hibernate.dialect", enviroment.getProperty("hibernate.dialect"));
-		hibernatebProperties.setProperty("hibernate.show_sql", enviroment.getProperty("hibernate.show_sql"));
-		sessionFactoryBean.setHibernateProperties(hibernatebProperties);
-		
+		Properties hibernateProperties = new Properties();
+		hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		hibernateProperties.put("hibernate.show_sql", "true");
+		sessionFactoryBean.setHibernateProperties(hibernateProperties);
+
 		return sessionFactoryBean;
 	}
-	
-	@Bean
+
+	@Bean(name = "transactionManager")
 	@Autowired
 	public HibernateTransactionManager hibernateTransactionManager(SessionFactory sessionFactory) {
 		HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
 		hibernateTransactionManager.setSessionFactory(sessionFactory);
-		
+
 		return hibernateTransactionManager;
 	}
 }

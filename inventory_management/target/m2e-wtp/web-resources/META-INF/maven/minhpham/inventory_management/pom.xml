@@ -8,12 +8,26 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<spring.version>4.0.6.RELEASE</spring.version>
-		<hibernate.version>5.2.12.Final</hibernate.version>
+		<spring.version>4.3.13.RELEASE</spring.version>
+		<hibernate.version>4.3.6.Final</hibernate.version>
 		<jstl.version>1.2</jstl.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- Spring Web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -28,6 +42,12 @@
 		</dependency>
 
 		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -45,14 +65,6 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.45</version>
-		</dependency>
-
-		<!-- Jsp-API -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.0</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- JSTL -->
