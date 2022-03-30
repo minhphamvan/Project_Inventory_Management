@@ -16,7 +16,7 @@ public class AdminController {
 	@Autowired
 	private UserDao<User> userDao;
 	
-	@RequestMapping("/test")
+	@RequestMapping("/admin")
 	public String test() {
 		List<User> users = userDao.findByProperty("username" , "minhpham");
 		System.out.println(users);
